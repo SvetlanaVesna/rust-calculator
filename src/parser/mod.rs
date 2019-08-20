@@ -22,11 +22,11 @@ impl Parser {
         p
     }
 
-    pub fn parse(&mut self) -> Result<Box<ast::Node>, String> {
+    pub fn parse(&mut self) -> Result<Box<dyn ast::Node>, String> {
         self.expr(1)
     }
 
-    pub fn expr(&mut self, prec: usize) -> Result<Box<ast::Node>, String> {
+    pub fn expr(&mut self, prec: usize) -> Result<Box<dyn ast::Node>, String> {
         let mut lhs = try!(self.atom());
         let mut rhs;
         loop {
@@ -59,7 +59,7 @@ impl Parser {
         Ok(lhs)
     }
 
-    pub fn atom(&mut self) -> Result<Box<ast::Node>, String> {
+    pub fn atom(&mut self) -> Result<Box<dyn ast::Node>, String> {
 
         match try!(self.peek_token()) {
             EOF => { Ok(Box::new( ast::Num {num: 0f64})) }
@@ -107,8 +107,8 @@ impl Parser {
         }
     }
 
-    pub fn op (&self, op: token::Token, lhs: Box<ast::Node>, rhs: Box<ast::Node>)
-            -> Box<ast::Node> {
+    pub fn op (&self, op: token::Token, lhs: Box<dyn ast::Node>, rhs: Box<dyn ast::Node>)
+            -> Box<dyn ast::Node> {
         match op {
             ADD => {
                 Box::new( ast::Add {
@@ -146,7 +146,7 @@ impl Parser {
         }
     }
 
-    pub fn function<'a>(&'a self, op: String, arg: Box<ast::Node>) -> Box<ast::Node> {
+    pub fn function<'a>(&'a self, op: String, arg: Box<dyn ast::Node>) -> Box<dyn ast::Node> {
         match &op[..] {
             "sin" | "sine" => {
                 Box::new( ast::Sin {

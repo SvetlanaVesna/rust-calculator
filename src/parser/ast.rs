@@ -17,8 +17,8 @@ impl Node for Num {
 }
 
 pub struct Add {
-    pub left: Box<Node>,
-    pub right: Box<Node>,
+    pub left: Box<dyn Node>,
+    pub right: Box<dyn Node>,
 }
 
 impl Node for Add {
@@ -36,8 +36,8 @@ impl Node for Add {
 }
 
 pub struct Sub {
-    pub left: Box<Node>,
-    pub right: Box<Node>,
+    pub left: Box<dyn Node>,
+    pub right: Box<dyn Node>,
 }
 
 impl Node for Sub {
@@ -55,8 +55,8 @@ impl Node for Sub {
 }
 
 pub struct Mul {
-    pub left: Box<Node>,
-    pub right: Box<Node>,
+    pub left: Box<dyn Node>,
+    pub right: Box<dyn Node>,
 }
 
 impl Node for Mul {
@@ -74,8 +74,8 @@ impl Node for Mul {
 }
 
 pub struct Div {
-    pub left: Box<Node>,
-    pub right: Box<Node>,
+    pub left: Box<dyn Node>,
+    pub right: Box<dyn Node>,
 }
 
 impl Node for Div {
@@ -93,8 +93,8 @@ impl Node for Div {
 }
 
 pub struct Pow {
-    pub base: Box<Node>,
-    pub exponent: Box<Node>
+    pub base: Box<dyn Node>,
+    pub exponent: Box<dyn Node>
 }
 
 impl Node for Pow {
@@ -112,7 +112,7 @@ impl Node for Pow {
 }
 
 pub struct Sin {
-    pub arg: Box<Node>
+    pub arg: Box<dyn Node>
 }
 
 impl Node for Sin {
@@ -124,7 +124,7 @@ impl Node for Sin {
     }
 }
 pub struct Cos {
-    pub arg: Box<Node>
+    pub arg: Box<dyn Node>
 }
 
 impl Node for Cos {
@@ -137,7 +137,7 @@ impl Node for Cos {
 }
 
 pub struct Sqrt {
-    pub arg: Box<Node>
+    pub arg: Box<dyn Node>
 }
 impl Node for Sqrt {
     fn eval(&self, env: &mut HashMap<String, f64>) -> Option<f64> {
@@ -149,7 +149,7 @@ impl Node for Sqrt {
 }
 
 pub struct Print {
-    pub arg: Box<Node>
+    pub arg: Box<dyn Node>
 }
 
 impl Node for Print {
@@ -178,7 +178,7 @@ impl Node for Var {
 
 pub struct Assignment {
     pub name: String,
-    pub value: Box<Node>
+    pub value: Box<dyn Node>
 }
 
 impl Node for Assignment {

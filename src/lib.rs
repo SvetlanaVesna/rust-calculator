@@ -4,7 +4,7 @@ pub mod parser;
 #[no_mangle]
 pub fn evaluate(input: &str, env: &mut HashMap<String, f64>) -> Result<f64, String> {
     let mut p = parser::Parser::new(input);
-    println!("{}",input);
+        println!("{}",input);
     let ast = try!(p.parse());
     match ast.eval(env) {
     Some(result) => Ok(result),
