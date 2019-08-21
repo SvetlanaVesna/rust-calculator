@@ -1,10 +1,16 @@
-import loadWasm from './lib.rs';
+const rust = import("../pkg/rust_calculator");
+rust.then(m =>
+    {
+        const getAvgRate = (baseAsk, baseBid, counterAsk, counterBid) => {
+            const base = m.div(m.add(baseAsk,baseBid),2);
+            const counter = m.div(m.add(counterAsk,counterBid),2);
+            return  m.div(counter,base);
+        }
 
-
-loadWasm().then(result => {
-    const {eval_math} = result.instance.exports;
-    console.log('I am alive!!!');
-
-    const res = eval_math("283.869575/0.886558")
-    console.log(res)
-});
+        for (let i = 0; i < 100; i++) {
+            console.time(`getAvgRate${i}`);
+            const rate = getAvgRate(0.8864693442,0.8866466558,283.79367,283.94548)
+            console.timeEnd(`getAvgRate${i}`);
+        }
+    }
+).catch(console.error);
